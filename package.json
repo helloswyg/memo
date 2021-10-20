@@ -1,0 +1,62 @@
+{
+  "name": "@swyg/memo",
+  "version": "1.0.0",
+  "description": "💾 Memoize a function the way you want.",
+  "main": "dist/cjs/src/index.js",
+  "module": "dist/esm/src/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "@types/jest": "^27.0.2",
+    "babel-jest": "^27.3.0",
+    "jest": "^27.3.0",
+    "jest-chain": "^1.1.5",
+    "jest-extended": "^1.0.0",
+    "rollup": "^2.58.0",
+    "rollup-plugin-dts": "^4.0.0",
+    "rollup-plugin-node-externals": "^2.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.3.0",
+    "typescript": "^4.4.4"
+  },
+  "scripts": {
+    "build": "npm run distclean && rollup -c",
+    "distclean": "rm -rf dist",
+    "nodeclean": "rm -rf node_modules",
+    "clean": "npm run distclean ; npm run nodeclean",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helloswyg/memo.git"
+  },
+  "author": {
+    "name": "The @hellowswyg/memo Contributors",
+    "url": "https://github.com/hellowswyg/memo/graphs/contributors"
+  },
+  "contributors": [
+    {
+      "name": "The @hellowswyg/memo Contributors",
+      "url": "https://github.com/hellowswyg/memo/graphs/contributors"
+    }
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/helloswyg/memo/issues"
+  },
+  "homepage": "https://github.com/helloswyg/memo#readme",
+  "dependencies": {
+    "is-promise": "^4.0.0"
+  }
+}
