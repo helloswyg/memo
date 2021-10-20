@@ -63,13 +63,13 @@ Usage
 
 **Functions:**
 
-- [`memoLastKey(func[, { resolver }]): MemoizedLastKeyFunction`]()
-- [`memoLastRef(func): MemoizedLastRefFunction`]()
-- [`memoCacheKey(func[, { resolver }]): MemoizedCacheFunction`]()
+- [`memoLastKey(func[, { resolver }]): MemoizedLastKeyFunction`](https://github.com/helloswyg/memo#memolastkeyfunc--resolver--memoizedlastkeyfunction)
+- [`memoLastRef(func): MemoizedLastRefFunction`](https://github.com/helloswyg/memo#memolastreffunc-memoizedlastreffunction)
+- [`memoCacheKey(func[, { resolver }]): MemoizedCacheFunction`](https://github.com/helloswyg/memo#memocachekeyfunc--resolver--memoizedcachefunction)
 
 **Classes:**
 
-- [`CacheSet(iterableOrObject?: Iterable<[K, V]> | CacheSetOptions, options?: CacheSetOptions)`]()
+- [`CacheSet(iterableOrObject?: Iterable<[K, V]> | CacheSetOptions, options?: CacheSetOptions)`](https://github.com/helloswyg/memo#cachesetiterableorobject-iterablek-v--cachesetoptions-options-cachesetoptions)
 
 
 ### `memoLastKey(func[, { resolver }]): MemoizedLastKeyFunction`
@@ -284,7 +284,7 @@ Types are already included in this package.
 
 You can check if a variable is referencing a memoized function with the following [type guards](https://www.typescriptlang.org/docs/handbook/advanced-types.html#user-defined-type-guards):
 
-- `isMemoLastKeyFunction(func)`
-- `isMemoLastRefFunction(func)`
-- `isMemoCacheFunction(func)`
-- `isMemoFunction(func)`
+- [`isMemoLastKeyFunction(func)`](https://github.com/helloswyg/memo/blob/main/src/base/memo-base.utils.ts)
+- [`isMemoLastRefFunction(func)`](https://github.com/helloswyg/memo/blob/main/src/base/memo-base.utils.ts)
+- [`isMemoCacheFunction(func)`](https://github.com/helloswyg/memo/blob/main/src/base/memo-base.utils.ts)
+- [`isMemoFunction(func)`](https://github.com/helloswyg/memo/blob/main/src/base/memo-base.utils.ts)
