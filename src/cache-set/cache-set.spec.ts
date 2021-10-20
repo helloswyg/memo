@@ -15,7 +15,7 @@ describe('CacheSet', () => {
 
   it('sets the default options properly', () => {
     expect(defaultOptionsSet.ttl).toEqual(Infinity);
-    expect(defaultOptionsSet.slots).toEqual(64);
+    expect(defaultOptionsSet.slots).toEqual(8);
     expect(defaultOptionsSet.keepPromises).toEqual(false);
   });
 
