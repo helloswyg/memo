@@ -5,7 +5,7 @@ memo
 
 ⚡ Keep your JS/TS/React code running lightning fast and smooth.
 
-🌍 Avoid wasting previous computation and worsen global warming.
+🌍 Avoid wasting precious computation and worsen global warming.
 
 ⚠️ Not to be confused with the Spanish word "memo": https://m.interglot.com/es/en/Memo
 
