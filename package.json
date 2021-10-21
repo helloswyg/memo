@@ -43,13 +43,13 @@
     "url": "git+https://github.com/helloswyg/memo.git"
   },
   "author": {
-    "name": "The @hellowswyg/memo Contributors",
-    "url": "https://github.com/hellowswyg/memo/graphs/contributors"
+    "name": "The @helloswyg/memo Contributors",
+    "url": "https://github.com/helloswyg/memo/graphs/contributors"
   },
   "contributors": [
     {
-      "name": "The @hellowswyg/memo Contributors",
-      "url": "https://github.com/hellowswyg/memo/graphs/contributors"
+      "name": "The @helloswyg/memo Contributors",
+      "url": "https://github.com/helloswyg/memo/graphs/contributors"
     }
   ],
   "license": "Apache-2.0",
@@ -59,5 +59,6 @@
   "homepage": "https://github.com/helloswyg/memo#readme",
   "dependencies": {
     "is-promise": "^4.0.0"
-  }
+  },
+  "keywords": ["memoization", "memoize", "cache", "caching", "performance", "memo", "memcached", "memory", "computation", "last-value", "last"]
 }

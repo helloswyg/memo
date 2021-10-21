@@ -3,7 +3,7 @@ memo
 
 💾 Memoize a function **the way you want**.
 
-⚡ Keep your JS/TS/React code running lightning fast and smooth.
+⚡ Keep your JS/TS/React code running lightning fast and smooth!
 
 🌍 Avoid wasting precious computation and worsen global warming.
 
@@ -27,7 +27,7 @@ React's `useMemo` vs. `@swyg/memo`
 
 With `@swyg/memo` you'll be able to enjoy a **less verbose syntax** and get **more control** over your memoization strategy.
 
-For example, your component might re-render often and always call the same function with an only a few combinations of params (e.g. filter or sort functionality). In that case, you could use `memoCacheKey(...)`.
+For example, your component might re-render often and always call the same function with only a few combinations of params (e.g. filter or sort functionality). In that case, you could use `memoCacheKey(...)`.
 
 **With React's `useMemo`:**
 
@@ -276,6 +276,8 @@ Create an instance of a set with a maximum number of elements (`options.slots`),
 
     console.log(cacheSet.get(1)); // undefined
 
+<br>
+
 
 TypeScript Support
 ------------------
@@ -288,3 +290,11 @@ You can check if a variable is referencing a memoized function with the followin
 - [`isMemoLastRefFunction(func)`](https://github.com/helloswyg/memo/blob/main/src/base/memo-base.utils.ts)
 - [`isMemoCacheFunction(func)`](https://github.com/helloswyg/memo/blob/main/src/base/memo-base.utils.ts)
 - [`isMemoFunction(func)`](https://github.com/helloswyg/memo/blob/main/src/base/memo-base.utils.ts)
+
+<br>
+
+
+TODO
+----
+
+- Implement a mechanism to skip the memoization (e.g. return `undefined` for the cache key or attach an `withoutMemo()` function to the memoized function).
