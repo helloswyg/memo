@@ -1,6 +1,6 @@
 {
   "name": "@swyg/memo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "💾 Memoize a function the way you want.",
   "main": "dist/cjs/src/index.js",
   "module": "dist/esm/src/index.js",
@@ -60,5 +60,17 @@
   "dependencies": {
     "is-promise": "^4.0.0"
   },
-  "keywords": ["memoization", "memoize", "cache", "caching", "performance", "memo", "memcached", "memory", "computation", "last-value", "last"]
+  "keywords": [
+    "memoization",
+    "memoize",
+    "cache",
+    "caching",
+    "performance",
+    "memo",
+    "memcached",
+    "memory",
+    "computation",
+    "last-value",
+    "last"
+  ]
 }
