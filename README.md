@@ -297,4 +297,6 @@ You can check if a variable is referencing a memoized function with the followin
 TODO
 ----
 
-- Implement a mechanism to skip the memoization (e.g. return `undefined` for the cache key or attach an `withoutMemo()` function to the memoized function).
+- Implement a mechanism to skip the memoization (e.g. return `undefined` for the cache key or attach a `withoutMemo()` function to the memoized function).
+- Implement a mechanism to get a "result" object that includes the entry key and initial date it was put into the cache.
+- Better interface for `CacheSet` depending if `keepPromises === true`.
