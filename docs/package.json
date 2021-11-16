@@ -5,7 +5,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "distclean": "rm -rf dist",
+    "nodeclean": "rm -rf node_modules",
+    "clean": "npm run distclean ; npm run nodeclean",
+    "deploy": "npm run distclean && npm run build && gh-pages -d build"
   },
   "dependencies": {
     "@swyg/corre": "^1.0.1",
