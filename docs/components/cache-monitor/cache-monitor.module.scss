@@ -1,0 +1,18 @@
+@import '../../styles/theme';
+
+.base {
+    table-layout: fixed;
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse; 
+
+    & th,
+    & td {
+        padding: 0.5 * $unit;
+        text-align: left;
+    }
+
+    & th {
+        border-bottom: 2px solid black;
+    }
+}
