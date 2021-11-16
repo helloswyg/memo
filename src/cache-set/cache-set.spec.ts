@@ -9,8 +9,8 @@ describe('CacheSet', () => {
   beforeAll(() => {
     defaultOptionsSet = new CacheSet();
     iterableSet = new CacheSet<number, string>([[1, 'one'], [2, 'two']]);
-    optionsSet = new CacheSet({ ttl: 1, slots: 2 });
-    promisesSet = new CacheSet({ ttl: 1, slots: 2, keepPromises: true });
+    optionsSet = new CacheSet({ ttl: 1000, slots: 2 });
+    promisesSet = new CacheSet({ ttl: 1000, slots: 2, keepPromises: true });
   });
 
   it('sets the default options properly', () => {
@@ -22,7 +22,6 @@ describe('CacheSet', () => {
   it('can be initialized with an Iterator', () => {
     expect(iterableSet.size).toEqual(2);
     expect(iterableSet.usages.length).toEqual(2);
-    expect(iterableSet.dates.size).toEqual(2);
     expect(iterableSet.get(1)).toEqual('one');
     expect(iterableSet.get(2)).toEqual('two');
   });
@@ -40,17 +39,14 @@ describe('CacheSet', () => {
     optionsSet.set(3, 'three');
     expect(optionsSet.size).toEqual(1);
     expect(optionsSet.usages.length).toEqual(1);
-    expect(optionsSet.dates.size).toEqual(1);
 
     optionsSet.set(4, 'four');
     expect(optionsSet.size).toEqual(2);
     expect(optionsSet.usages.length).toEqual(2);
-    expect(optionsSet.dates.size).toEqual(2);
 
     optionsSet.set(5, 'five');
     expect(optionsSet.size).toEqual(2);
     expect(optionsSet.usages.length).toEqual(2);
-    expect(optionsSet.dates.size).toEqual(2);
 
     expect(optionsSet.get(3)).toBeUndefined();
     expect(optionsSet.get(4)).toEqual('four');
@@ -63,7 +59,6 @@ describe('CacheSet', () => {
 
     expect(optionsSet.size).toEqual(1);
     expect(optionsSet.usages.length).toEqual(1);
-    expect(optionsSet.dates.size).toEqual(1);
   });
 
   it('clears all default and custom data', () => {
@@ -71,7 +66,6 @@ describe('CacheSet', () => {
 
     expect(optionsSet.size).toEqual(0);
     expect(optionsSet.usages.length).toEqual(0);
-    expect(optionsSet.dates.size).toEqual(0);
     expect(optionsSet.lastUsage).toEqual(0);
   });
 
@@ -79,39 +73,34 @@ describe('CacheSet', () => {
     optionsSet.set(3, 'three');
     expect(optionsSet.size).toEqual(1);
     expect(optionsSet.usages.length).toEqual(1);
-    expect(optionsSet.dates.size).toEqual(1);
 
     optionsSet.set(4, 'four');
     expect(optionsSet.size).toEqual(2);
     expect(optionsSet.usages.length).toEqual(2);
-    expect(optionsSet.dates.size).toEqual(2);
 
-    const previousTimestamp = optionsSet.dates.get(3);
+    // const previousTimestamp = optionsSet.dates.get(3);
 
-    optionsSet.get(3);
-    expect(previousTimestamp).not.toEqual(optionsSet.dates.get(3));
+    // optionsSet.get(3);
+    // expect(previousTimestamp).not.toEqual(optionsSet.dates.get(3));
 
     optionsSet.set(5, 'five');
     expect(optionsSet.size).toEqual(2);
     expect(optionsSet.usages.length).toEqual(2);
-    expect(optionsSet.dates.size).toEqual(2);
 
     expect(optionsSet.get(3)).toEqual('three');
     expect(optionsSet.get(4)).toBeUndefined();
     expect(optionsSet.get(5)).toEqual('five');
 
-    const previousTimestamp2 = optionsSet.dates.get(3);
+    // const previousTimestamp2 = optionsSet.dates.get(3);
 
-    optionsSet.set(3, '3');
+    // optionsSet.set(3, '3');
     expect(optionsSet.size).toEqual(2);
     expect(optionsSet.usages.length).toEqual(2);
-    expect(optionsSet.dates.size).toEqual(2);
-    expect(previousTimestamp2).not.toEqual(optionsSet.dates.get(3));
+    // expect(previousTimestamp2).not.toEqual(optionsSet.dates.get(3));
 
     optionsSet.set(4, '4');
     expect(optionsSet.size).toEqual(2);
     expect(optionsSet.usages.length).toEqual(2);
-    expect(optionsSet.dates.size).toEqual(2);
 
     expect(optionsSet.get(3)).toEqual('3');
     expect(optionsSet.get(4)).toEqual('4');
@@ -125,17 +114,15 @@ describe('CacheSet', () => {
     optionsSet.set(4, 'four');
     expect(optionsSet.size).toEqual(2);
     expect(optionsSet.usages.length).toEqual(2);
-    expect(optionsSet.dates.size).toEqual(2);
     expect(optionsSet.lastUsage).not.toEqual(0);
 
-    optionsSet.dates.set(3, 1);
+    // optionsSet.dates.set(3, 1);
 
     expect(optionsSet.has(3)).toEqual(false);
     expect(optionsSet.has(4)).toEqual(true);
 
     expect(optionsSet.size).toEqual(1);
     expect(optionsSet.usages.length).toEqual(1);
-    expect(optionsSet.dates.size).toEqual(1);
     expect(optionsSet.lastUsage).not.toEqual(0);
   });
 
@@ -146,7 +133,6 @@ describe('CacheSet', () => {
     optionsSet.set(4, 'four');
     expect(optionsSet.size).toEqual(2);
     expect(optionsSet.usages.length).toEqual(2);
-    expect(optionsSet.dates.size).toEqual(2);
     expect(optionsSet.lastUsage).not.toEqual(0);
 
     optionsSet.lastUsage = 1;
@@ -156,7 +142,6 @@ describe('CacheSet', () => {
 
     expect(optionsSet.size).toEqual(0);
     expect(optionsSet.usages.length).toEqual(0);
-    expect(optionsSet.dates.size).toEqual(0);
     expect(optionsSet.lastUsage).toEqual(0);
   });
 
@@ -164,7 +149,6 @@ describe('CacheSet', () => {
     optionsSet.set('PROMISE', Promise.resolve(42));
     expect(optionsSet.size).toEqual(1);
     expect(optionsSet.usages.length).toEqual(1);
-    expect(optionsSet.dates.size).toEqual(1);
     expect(optionsSet.get('PROMISE')).toBeInstanceOf(Promise);
 
     process.nextTick(() => {
@@ -182,7 +166,6 @@ describe('CacheSet', () => {
 
     expect(promisesSet.size).toEqual(1);
     expect(promisesSet.usages.length).toEqual(1);
-    expect(promisesSet.dates.size).toEqual(1);
     expect(promisesSet.get('PROMISE')).toBeInstanceOf(Promise);
 
     process.nextTick(() => {
@@ -199,7 +182,6 @@ describe('CacheSet', () => {
 
     expect(optionsSet.size).toEqual(2);
     expect(optionsSet.usages.length).toEqual(2);
-    expect(optionsSet.dates.size).toEqual(2);
     expect(optionsSet.lastUsage).not.toEqual(0);
 
     optionsSet.resize(4);
@@ -209,7 +191,6 @@ describe('CacheSet', () => {
 
     expect(optionsSet.size).toEqual(4);
     expect(optionsSet.usages.length).toEqual(4);
-    expect(optionsSet.dates.size).toEqual(4);
     expect(optionsSet.lastUsage).not.toEqual(0);
 
     optionsSet.resize(2);

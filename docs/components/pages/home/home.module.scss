@@ -1,0 +1,89 @@
+@import '../../../styles/theme';
+
+.base {
+    // padding: $unit * 4;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 2px solid black;
+    // grid-gap: $unit * 4;
+}
+
+.controls,
+.cache {
+    // background: $c-light-gray;
+    padding: $unit * 4;
+    // border-radius: $radius;
+}
+
+.controls {
+    border-right: 2px solid black;
+}
+
+.select {
+    border: 2px solid black;
+    display: block;
+    width: 100%;
+    padding: $unit;
+    background: transparent;
+    margin-bottom: $unit;
+    outline: none;
+}
+
+.dates {
+    margin-top: $unit * 4;
+    border-top: 2px solid #DDD;
+}
+
+.date {
+    display: block;
+    border-bottom: 2px solid #DDD;
+    display: flex;
+    align-items: center;
+}
+
+.dateIcon {
+    // margin-right: $unit;
+    padding: $unit;
+}
+
+.dateText {
+    padding: $unit $unit $unit 0;
+}
+
+.dataButton {
+    border: none;
+    border-left: 2px solid #DDD;
+    padding: $unit;
+    background: transparent;
+    margin-left: auto;
+    align-self: stretch;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    font-family: monospace;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: inset -2px 0 0 0 #DDD, 0 0 16px 0 rgba(0, 0, 0, .125);
+    }
+}
+
+.cache { 
+
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.iconSpin {
+    animation-name: spin;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; 
+}

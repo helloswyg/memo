@@ -21,13 +21,13 @@ describe('memo-last.utils.ts', () => {
     m1 = memoCacheKey(f1);
 
     f2 = (arg: number) => ({ value: arg });
-    m2 = memoCacheKey(f2, { ttl: 1, slots: 2 });
+    m2 = memoCacheKey(f2, { ttl: 1000, slots: 2 });
 
     f3 = (arg: number) => Promise.resolve(arg);
-    m3 = memoCacheKey(f3, { ttl: 1, slots: 2 });
+    m3 = memoCacheKey(f3, { ttl: 1000, slots: 2 });
 
     f4 = (arg: number) => Promise.resolve(arg);
-    m4 = memoCacheKey(f4, { ttl: 1, slots: 2, keepPromises: true });
+    m4 = memoCacheKey(f4, { ttl: 1000, slots: 2, keepPromises: true });
 
     expect(m1).toBeFunction();
     expect(m2).toBeFunction();
