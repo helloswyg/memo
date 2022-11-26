@@ -159,6 +159,13 @@ export const HomePage: React.FC = () => {
 
     */
 
+    /*
+
+        What features do you need? Persistence (localStorage), dates, etc.
+        Document resolvers, hash, etc.
+
+    */
+
     return (
         <div className={ styles.base }>
             <div className={ styles.dashboard }>            

@@ -39,7 +39,7 @@ export interface CacheItem<K extends CacheKey = CacheKey, V = any> {
   createdAt: number;
 }
 
-export class CacheSet<K extends CacheKey = CacheKey, V = any> extends Map<K, CacheItem<K, V>> {
+export class CacheSet<K extends CacheKey = CacheKey, V = any> implements Omit<Map<K, CacheItem<K, V>>, 'set'> {
 
   // Options:
   slots = 8;
@@ -52,9 +52,10 @@ export class CacheSet<K extends CacheKey = CacheKey, V = any> extends Map<K, Cac
   lastWrite = 0;
   usages: K[] = [];
 
-  constructor(iterableOrObject?: Iterable<[K, V]> | CacheSetOptions, options?: CacheSetOptions) {
-    super();
+  // Actual data:
+  map: Map<K, CacheItem<K, V>> = new Map();
 
+  constructor(iterableOrObject?: Iterable<[K, V]> | CacheSetOptions, options?: CacheSetOptions) {
     const iterable = Array.isArray(iterableOrObject) ? iterableOrObject : null;
     const actualOptions: CacheSetOptions = options || (typeof iterableOrObject === 'object' ? iterableOrObject : { }) as CacheSetOptions;
 
@@ -99,7 +100,7 @@ export class CacheSet<K extends CacheKey = CacheKey, V = any> extends Map<K, Cac
   }
 
   isItemExpired(key: K): boolean {
-    const item = super.get(key);
+    const item = this.map.get(key);
 
     if (!item) return false;
 
@@ -111,7 +112,7 @@ export class CacheSet<K extends CacheKey = CacheKey, V = any> extends Map<K, Cac
   }
 
   clear() {
-    super.clear();
+    this.map.clear();
 
     this.lastUsage = 0;
     this.lastWrite = 0;
@@ -119,7 +120,7 @@ export class CacheSet<K extends CacheKey = CacheKey, V = any> extends Map<K, Cac
   }
 
   delete(key: K): boolean {
-    const deleted = super.delete(key);
+    const deleted = this.map.delete(key);
 
     if (deleted) this.updateUsages(key, 'delete');
 
@@ -131,18 +132,14 @@ export class CacheSet<K extends CacheKey = CacheKey, V = any> extends Map<K, Cac
       const lastUsage = this.updateUsages(key, 'read');
 
       const nextItem: CacheItem<K, V> = {
-        ...super.get(key)!,
+        ...this.map.get(key)!,
         lastUsage,
       };
 
-      super.set(key, nextItem);
+      this.map.set(key, nextItem);
 
       return nextItem;
     }
-  }
-
-  getValue(key: K): V | undefined {
-    return this.get(key)?.value;
   }
 
   has(key: K): boolean {
@@ -158,12 +155,10 @@ export class CacheSet<K extends CacheKey = CacheKey, V = any> extends Map<K, Cac
       return false;
     }
 
-    return super.has(key);
+    return this.map.has(key);
   }
 
-  // set(key: K, value: V): this {
-
-  setValue(key: K, value: V): this {
+  set(key: K, value: V): CacheItem<K, V> {
     const createdAt = this.updateUsages(key, 'write');
 
     const item: CacheItem<K, V> = {
@@ -174,18 +169,18 @@ export class CacheSet<K extends CacheKey = CacheKey, V = any> extends Map<K, Cac
       // TODO: Add a resolved: boolean property?
     };
 
-    super.set(key, item);
+    this.map.set(key, item);
 
     if (!this.keepPromises && isPromise(value)) {
       // TODO: Better handle types in this case:
       value.then((resolvedValue: any) => {
-        super.set(key, { ...item, value: resolvedValue });
+        this.map.set(key, { ...item, value: resolvedValue });
       });
     }
 
     this.resize();
 
-    return this;
+    return item;
   }
 
   resize(slots?: number) {
@@ -198,19 +193,42 @@ export class CacheSet<K extends CacheKey = CacheKey, V = any> extends Map<K, Cac
     const itemsToRemove = this.usages.slice(0, elementsToRemove);
     const itemsToKeep = this.usages.slice(elementsToRemove);
 
-    itemsToRemove.forEach(key => super.delete(key));
+    itemsToRemove.forEach(key => this.map.delete(key));
 
     this.usages = itemsToKeep;
   }
 
-  /*
-  entries() {
-    return super.entries();
+  get size(): number {
+    return this.map.size;
   }
 
-  forEach(callbackFn: any) {
-    return super.forEach(callbackFn);
+  get [Symbol.iterator]() {
+    return this.map[Symbol.iterator];
   }
-  */
-  
+
+  get [Symbol.toStringTag]() {
+    return this.map[Symbol.toStringTag];
+  }
+
+  keys() {
+    return this.map.keys();
+  }
+
+  values() {
+    return this.map.values();
+  }
+
+  entries() {
+    return this.map.entries();
+  }
+
+  clone() {
+    // TODO: This should return a new CacheSet instance.
+    // Keep in mind that the data itself is not cloned:
+    return new Map(this.map);
+  }
+
+  forEach(callbackFn: (value: CacheItem<K, V>, key: K, map: Map<K, CacheItem<K, V>>) => void, thisArg?: any) {
+    return this.map.forEach(callbackFn, thisArg);
+  }  
 }
