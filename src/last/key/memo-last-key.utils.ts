@@ -1,8 +1,9 @@
-import { MemoBaseOptions, DEFAULT_RESOLVER, MemoizableFunction, ERROR_MESSAGE } from '../../base/memo-base.constants';
+import { MemoBaseOptions, MemoizableFunction, ERROR_MESSAGE, getResolver } from '../../base/memo-base.constants';
 import { isMemoFunction, isMemoLastKeyFunction } from '../../base/memo-base.utils';
+import { CacheKey } from '../../cache-set/cache-set';
 
 export interface MemoizedLastKeyFunctionProps {
-  lastKey?: string | number;
+  lastKey?: CacheKey;
   lastValue?: any;
 }
 
@@ -10,12 +11,12 @@ export interface MemoizedLastKeyFunction<F extends MemoizableFunction = Memoizab
   (...args: Parameters<F>): ReturnType<F>;
 }
 
-export function memoLastKey<F extends MemoizableFunction>(f: F, { resolver }: MemoBaseOptions<F> = { }): MemoizedLastKeyFunction<F> {
+export function memoLastKey<F extends MemoizableFunction>(f: F, options: MemoBaseOptions<F> = { }): MemoizedLastKeyFunction<F> {
   if (!f || isMemoLastKeyFunction(f)) return f;
 
   if (isMemoFunction(f)) throw new Error(ERROR_MESSAGE);
 
-  const resolverFunction = resolver || DEFAULT_RESOLVER;
+  const resolverFunction = getResolver(options);
 
   const memoized: MemoizedLastKeyFunction<F> = (...args) => {
     const key = resolverFunction(...args);
